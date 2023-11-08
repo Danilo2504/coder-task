@@ -1,92 +1,130 @@
 // Banco digital
 
 class Usuario {
-  constructor(nombre, dni, dinero, contraseña) {
+  constructor(nombre, contraseña, dinero) {
+    this.id = Math.floor(Math.random() * 999) + 1;
     this.nombre = nombre;
-    this.dni = dni;
-    this.dinero = dinero;
     this.contraseña = contraseña;
+    this.dinero = dinero;
   }
+}
 
-  crearCuenta(nombre, dni, contraseña) {
-    if (!nombre) {
-      alert("Usuario no encontrado");
-      return false;
-    }
-    if (!dni.match(/\d/)) {
-      alert("dni no valido");
-      return false;
-    }
-    if (!contraseña) {
-      alert("Ingrese su contraseña por favor");
-      return false;
-    }
-    if (contraseña.length < 5) {
-      alert("Contraseña muy corta");
-      return false;
-    }
-    return true;
-  }
+const user1 = new Usuario("Gustavo", "contra123", 500);
+const user2 = new Usuario("Charly", "click", 850);
+const user3 = new Usuario("Sergio", "ramos", 1000);
+const user4 = new Usuario("Tony", "password", 300);
 
-  login(nombre, contraseña) {
-    if (!nombre) {
-      alert("Usuario no encontrado");
-      return false;
-    }
-    if (!contraseña) {
-      alert("Ingrese su contraseña por favor");
-      return false;
-    }
-    if (contraseña.length < 5) {
-      alert("Contraseña muy corta");
-      return false;
-    }
-    return true;
-  }
+let usuarios = [user1, user2, user3, user4];
 
-  operaciones() {
+let isLogged = false;
+
+const operaciones = (usuario) => {
+  while (isLogged) {
     let opcion = prompt(
-      "Bienvenido, ¿Que operación desea realizar? \n 1 - Ver Saldo\n 2 - Depositar dinero\n 3 - Extraer Dinero"
+      "Bienvenido, ¿Que operación desea realizar? \n 1 - Ver Saldo\n 2 - Depositar dinero\n 3 - Extraer Dinero\n 4 - Cerrar sesión"
     );
 
     if (opcion === "1") {
-      this.verSaldo();
+      verSaldo(usuario);
     } else if (opcion === "2") {
       let monto = prompt("Ingrese la cantidad a depositar");
-      this.depositarDinero(monto);
+      depositarDinero(monto, usuario);
     } else if (opcion === "3") {
       let monto = prompt("Ingrese la cantidad a extaer");
-      this.extraerDinero(monto);
+      extraerDinero(monto, usuario);
+    } else if (opcion === "4") {
+      cerrarSesion();
     }
   }
+};
 
-  verSaldo() {
-    if (!this.dinero) {
-      return alert("No tenes dinero");
-    } else if (parseInt(this.dinero) >= 0) {
-      return alert(`Su Saldo es de ${this.dinero}`);
-    }
+const verSaldo = (usuario) => {
+  if (!usuario.dinero) {
+    alert("No tenes dinero");
+    isLogged = true;
+  } else if (Number(usuario.dinero) >= 0) {
+    alert(`Su Saldo es de ${usuario.dinero}`);
+    isLogged = true;
   }
+};
 
-  depositarDinero(monto) {
-    if (monto.match(/\d/)) {
-      let dineroActual = parseInt(this.dinero) + parseInt(monto);
-      return alert(
-        `Deposito realizado con exito, su saldo es de: ${dineroActual}`
-      );
-    }
-  }
+const depositarDinero = (monto, usuario) => {
+  if (Number(monto)) {
+    let dineroActual = usuario.dinero + Number(monto);
 
-  extraerDinero(monto) {
-    if (monto.match(/\d/)) {
-      if (this.dinero < monto) return alert("Saldo insuficiente");
-      let dineroActual = parseInt(this.dinero) - parseInt(monto);
-      return alert(
-        `Extracción realizada con exito, su saldo es de: ${dineroActual}`
-      );
-    }
+    usuarios = usuarios.map(function (item) {
+      if (item.id === usuario.id) {
+        item.dinero = dineroActual;
+      }
+      return item;
+    });
+
+    alert(`Deposito realizado con exito, su saldo es de: ${dineroActual}`);
+    isLogged = true;
+  } else {
+    alert("Ocurrio un error. Vuelva a intentarlo");
+    isLogged = true;
   }
-}
+};
+
+const extraerDinero = (monto, usuario) => {
+  if (usuario.dinero < Number(monto)) {
+    alert("Saldo insuficiente. Vuelva a intentarlo");
+    isLogged = true;
+  }
+  let dineroActual = usuario.dinero - Number(monto);
+
+  usuarios = usuarios.map(function (item) {
+    if (item.id === usuario.id) {
+      item.dinero = dineroActual;
+    }
+    return item;
+  });
+
+  alert(`Extracción realizada con exito, su saldo es de: ${dineroActual}`);
+  isLogged = true;
+};
+
+const cerrarSesion = () => {
+  alert("Gracias por su visita");
+  isLogged = false;
+};
+
+const iniciarSesion = (nombre, contraseña) => {
+  if (!nombre) {
+    alert("Necesita un nombre");
+    isLogged = false;
+  } else if (!contraseña) {
+    alert("Necesita su contraseña");
+    isLogged = false;
+  } else {
+    let result = usuarios.filter(
+      (item) => item.nombre === nombre && item.contraseña === contraseña
+    );
+    if (result[0]) {
+      isLogged = true;
+      return result[0];
+    } else isLogged = false;
+  }
+};
+
+const crearCuenta = (nombre, contraseña) => {
+  if (!nombre) {
+    alert("Necesita un nombre");
+    isLogged = false;
+  } else if (!contraseña) {
+    alert("Necesita su contraseña");
+    isLogged = false;
+  } else if (contraseña.length < 5) {
+    alert("Contraseña muy corta");
+    isLogged = false;
+  } else {
+    let nuevoUsuario = new Usuario(nombre, contraseña, 0);
+    usuarios.push(nuevoUsuario);
+    isLogged = true;
+    return nuevoUsuario;
+  }
+};
 
 let inicio = prompt(
   "Bienvenido a ArgenBank, ¿Que desea hacer? \n 1 - Iniciar sesion\n 2 - Crear una cuenta"
@@ -96,21 +134,20 @@ if (inicio === "1") {
   let nombre = prompt("Ingrese su nombre de usuario");
   let contraseña = prompt("Ingrese su contraseña");
 
-  let usario = new Usuario(nombre, "", "0", contraseña);
+  let usuario = iniciarSesion(nombre, contraseña);
 
-  if (!usario.login(nombre, contraseña)) alert("Datos incorrectos");
-  usario.operaciones();
+  if (!isLogged) alert("Datos incorrectos");
+
+  operaciones(usuario);
 } else if (inicio === "2") {
   let nombre = prompt("Ingrese su nombre");
-  let dni = prompt("Ingrese su dni");
   let contraseña = prompt(
     "Ingrese su contraseña. Debe ser de mas de 5 caracteres de longitud"
   );
-  let usuario = new Usuario(nombre, dni, "0", contraseña);
-  let bandera = usuario.crearCuenta(nombre, dni, contraseña);
-  if (!bandera) {
-    alert("Falló al crear cuenta");
-  } else {
-    usuario.operaciones();
-  }
+
+  let usuario = crearCuenta(nombre, contraseña);
+
+  if (!isLogged) alert("Datos incorrectos");
+
+  operaciones(usuario);
 }
