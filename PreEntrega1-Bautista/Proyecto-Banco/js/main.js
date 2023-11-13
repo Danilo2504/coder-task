@@ -17,9 +17,10 @@ const user4 = new Usuario("Tony", "password", 300);
 let usuarios = [user1, user2, user3, user4];
 
 let isLogged = false;
+let isRunning = true;
 
 const operaciones = (usuario) => {
-  while (isLogged) {
+  while (isRunning) {
     let opcion = prompt(
       "Bienvenido, ¿Que operación desea realizar? \n 1 - Ver Saldo\n 2 - Depositar dinero\n 3 - Extraer Dinero\n 4 - Cerrar sesión"
     );
@@ -34,17 +35,19 @@ const operaciones = (usuario) => {
       extraerDinero(monto, usuario);
     } else if (opcion === "4") {
       cerrarSesion();
+    } else {
+      alert("Ninguna opción fue seleccionada. Vuelva a intentarlo");
     }
   }
 };
 
 const verSaldo = (usuario) => {
   if (!usuario.dinero) {
-    alert("No tenes dinero");
-    isLogged = true;
+    alert("No tenes dinero. Vuelva a intentarlo");
   } else if (Number(usuario.dinero) >= 0) {
     alert(`Su Saldo es de ${usuario.dinero}`);
-    isLogged = true;
+  } else {
+    alert("Ocurrio un error. Vuelva a intentarlo");
   }
 };
 
@@ -52,51 +55,53 @@ const depositarDinero = (monto, usuario) => {
   if (Number(monto)) {
     let dineroActual = usuario.dinero + Number(monto);
 
-    usuarios = usuarios.map(function (item) {
+    let nuevosDatos = usuarios.map(function (item) {
       if (item.id === usuario.id) {
         item.dinero = dineroActual;
       }
       return item;
     });
 
+    usuarios = nuevosDatos;
+
     alert(`Deposito realizado con exito, su saldo es de: ${dineroActual}`);
-    isLogged = true;
   } else {
     alert("Ocurrio un error. Vuelva a intentarlo");
-    isLogged = true;
   }
 };
 
 const extraerDinero = (monto, usuario) => {
   if (usuario.dinero < Number(monto)) {
     alert("Saldo insuficiente. Vuelva a intentarlo");
-    isLogged = true;
+  } else if (Number(monto) > 0) {
+    let dineroActual = usuario.dinero - Number(monto);
+
+    let nuevosDatos = usuarios.map(function (item) {
+      if (item.id === usuario.id) {
+        item.dinero = dineroActual;
+      }
+      return item;
+    });
+
+    usuarios = nuevosDatos;
+
+    alert(`Extracción realizada con exito, su saldo es de: ${dineroActual}`);
+  } else {
+    alert("Ocurrio un error. Vuelva a intentarlo");
   }
-  let dineroActual = usuario.dinero - Number(monto);
-
-  usuarios = usuarios.map(function (item) {
-    if (item.id === usuario.id) {
-      item.dinero = dineroActual;
-    }
-    return item;
-  });
-
-  alert(`Extracción realizada con exito, su saldo es de: ${dineroActual}`);
-  isLogged = true;
 };
 
 const cerrarSesion = () => {
   alert("Gracias por su visita");
   isLogged = false;
+  isRunning = false;
 };
 
 const iniciarSesion = (nombre, contraseña) => {
   if (!nombre) {
     alert("Necesita un nombre");
-    isLogged = false;
   } else if (!contraseña) {
     alert("Necesita su contraseña");
-    isLogged = false;
   } else {
     let result = usuarios.filter(
       (item) => item.nombre === nombre && item.contraseña === contraseña
@@ -104,24 +109,24 @@ const iniciarSesion = (nombre, contraseña) => {
     if (result[0]) {
       isLogged = true;
       return result[0];
-    } else isLogged = false;
+    } else {
+      alert("Error en las credenciales. Vuelva a intentarlo");
+    }
   }
 };
 
 const crearCuenta = (nombre, contraseña) => {
   if (!nombre) {
     alert("Necesita un nombre");
-    isLogged = false;
   } else if (!contraseña) {
     alert("Necesita su contraseña");
-    isLogged = false;
   } else if (contraseña.length < 5) {
     alert("Contraseña muy corta");
-    isLogged = false;
   } else {
     let nuevoUsuario = new Usuario(nombre, contraseña, 0);
     usuarios.push(nuevoUsuario);
     isLogged = true;
+    console.log(usuarios);
     return nuevoUsuario;
   }
 };
@@ -136,9 +141,11 @@ if (inicio === "1") {
 
   let usuario = iniciarSesion(nombre, contraseña);
 
-  if (!isLogged) alert("Datos incorrectos");
-
-  operaciones(usuario);
+  if (!isLogged) {
+    isRunning = false;
+  } else {
+    operaciones(usuario);
+  }
 } else if (inicio === "2") {
   let nombre = prompt("Ingrese su nombre");
   let contraseña = prompt(
@@ -147,7 +154,11 @@ if (inicio === "1") {
 
   let usuario = crearCuenta(nombre, contraseña);
 
-  if (!isLogged) alert("Datos incorrectos");
-
-  operaciones(usuario);
+  if (!isLogged) {
+    isRunning = false;
+  } else {
+    operaciones(usuario);
+  }
+} else {
+  alert("Ninguna opción fue seleccionada. Gracias por su visita");
 }
