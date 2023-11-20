@@ -1,9 +1,10 @@
-function Car(brand, model, year, price, status) {
+function Car(brand, model, year, initialPrice, status) {
   this.id = Math.ceil(Math.random() * 100);
   this.brand = brand;
   this.model = model;
   this.year = year;
-  this.price = price;
+  this.initialPrice = initialPrice;
+  this.currentPrice = initialPrice;
   this.status = status;
   this.listCar = [];
 }
@@ -18,7 +19,7 @@ let auto5 = new Car("Mercedes Benz", "GLE", 2008, 2800, "usado");
 let auto6 = new Car("Ford", "Escape", 2014, 3910, "nuevo");
 let auto7 = new Car("Tesla", "Model s", 2011, 5600, "usado");
 let auto8 = new Car("Nissan", "Altima", 2009, 4502, "usado");
-let auto9 = new Car("Audi", "A4", 2013, 2040, "usado");
+let auto9 = new Car("Audi", "A4", 2013, 2004, "usado");
 let auto10 = new Car("BMW", "Serie 5", 2006, 3201, "nuevo");
 let auto11 = new Car("Chevrolet", "Equinox", 2015, 2040, "nuevo");
 let auto12 = new Car("Mercedes Benz", "Clase E", 2002, 4500, "nuevo");
@@ -40,107 +41,107 @@ car.listCar = [
 
 let isRunning = true;
 
-//Esta función es para subastar un car. Al finalizar se agrega a la lista
-//de autos en subasta
 function auction() {
   let brand = prompt("¿A que marca pertenece?");
-  if (!brand) return alert("Marca no válida");
-  let model = prompt("¿Que modelo es?");
-  if (!model) return alert("Modelo no válido");
+  if (!brand) {
+    alert("Marca no válida");
+    return false;
+  }
+  let model = prompt("¿Qué modelo es?");
+  if (!model) {
+    alert("Modelo no válido");
+    return false;
+  }
   let year = prompt("¿De que año es?");
-  if (isNaN(year) || Number(year) < 1900) return alert("Año no válido");
-  let status = prompt("¿Cual es el estado (nuevo, usado)?");
-  if (!status) return alert("Estado no válido");
-  let initialOffer = prompt("¿Cuanto quieres de oferta inicial?");
-  if (isNaN(initialOffer) || Number(initialOffer) < 0)
-    return alert("Oferta Inicial no válido");
+  if (isNaN(year) || Number(year) < 1900) {
+    alert("Año no válido");
+    return false;
+  }
+  let status = prompt("¿Cuál es el estado (nuevo, usado)?");
+  if (!status) {
+    alert("Estado no válido");
+    return false;
+  }
+  let initialPrice = prompt("¿Cuanto es el precio inicial?");
+  if (isNaN(initialPrice) || Number(initialPrice) < 0) {
+    alert("Precio Inicial no es válido");
+    return false;
+  }
 
-  let data = new Car(brand, model, year, initialOffer, status);
+  let data = new Car(brand, model, year, initialPrice, status);
   car.listCar.push(data);
 
   alert("Gracias por subastar su auto en Autoventa Subastas");
 }
 
-// Esta función busca en la lista de autos por la palabra ingresada.
-function searchCar(option) {
-  let results = car.listCar.filter(
+function searchCar(keyWord) {
+  let matches = car.listCar.filter(
     (car) =>
-      car.brand.toLowerCase().startsWith(option.toLowerCase()) ||
-      car.model.toLowerCase().startsWith(option.toLowerCase()) ||
-      car.status.toLowerCase().startsWith(option.toLowerCase())
+      car.brand.toLowerCase().startsWith(keyWord.toLowerCase()) ||
+      car.model.toLowerCase().startsWith(keyWord.toLowerCase()) ||
+      car.status.toLowerCase().startsWith(keyWord.toLowerCase())
   );
 
-  if (!results.length) return alert("No hay resultados");
+  if (matches.length) {
+    let matchesListed = matches
+      .map((car, index) => {
+        return `${index + 1}- ${car.brand} ${car.model} ${
+          car.year
+        } (${car.status.toUpperCase()}) al precio de $${car.currentPrice}`;
+      })
+      .join("\n");
 
-  let resultsListed = results
-    .map((car, index) => {
-      return `${index + 1}- Marca: ${car.brand}, Modelo: ${car.model}, Año: ${
-        car.year
-      }, Estado: ${car.status.toUpperCase()}, Precio Base: $${car.price}`;
-    })
-    .join("\n");
-
-  let optionSelected = prompt(
-    `Elija uno de los siguientes resultados:\n${resultsListed}`
-  );
-
-  if (
-    isNaN(optionSelected) ||
-    Number(optionSelected) <= 0 ||
-    Number(optionSelected) > results.length
-  ) {
-    return alert("No es una opción válida");
-  }
-
-  let selectedCar = results[Number(optionSelected) - 1];
-  generateFakeOffer(selectedCar);
-}
-
-//Esta función genera una puja falsa. Es para darle realismo.
-//Si la puja falsa no es valida se procede con el precio inicial del car.
-function generateFakeOffer(selectedCar) {
-  let currentSeconds = new Date().getSeconds();
-  let fakeOffer = currentSeconds % 2 === 0;
-
-  if (fakeOffer) {
-    let fakeAmount = Math.floor(Math.random() * 1000 + selectedCar.price);
-    if (fakeAmount <= selectedCar.price) return false;
-    let amount = prompt(
-      `Hay una oferta de otro usuario en pie por el auto ${selectedCar.brand} ${
-        selectedCar.model
-      } ${
-        selectedCar.year
-      } ${selectedCar.status.toUpperCase()}.\nLa oferta es de $${fakeAmount}\nIngrese una oferta mayor:`
+    let carSelected = prompt(
+      `Elija uno de los siguientes resultados:\n${matchesListed}`
     );
-    makeAnOffer(fakeAmount, amount, selectedCar.id);
+
+    if (Number(carSelected) > 0 && Number(carSelected) <= matches.length) {
+      return matches[carSelected - 1];
+    } else {
+      alert("No es una opción válida");
+      return false;
+    }
   } else {
-    let amount = prompt(
-      `La oferta inicial del auto ${selectedCar.brand} ${selectedCar.model} ${
-        selectedCar.year
-      } ${selectedCar.status.toUpperCase()} es de $${
-        selectedCar.price
-      }. Ingrese una oferta mayor: `
-    );
-    makeAnOffer(selectedCar.price, amount, selectedCar.id);
+    alert("No hay resultados");
+    return false;
   }
 }
 
-//Esta función maneja las validaciones de los precios
-//Si todo sale bien hace la oferta y quita el auto de la lista.
-function makeAnOffer(price, amount, carId) {
-  if (isNaN(amount) || Number(amount) === 0) return alert("Oferta no válida");
-  if (Number(amount) <= price) {
-    return alert("Oferta insuficiente. Ponele voluntad!");
-  } else if (Number(amount) > price) {
-    let selectedCar = car.listCar.find((car) => car.id == carId);
+function makeAnOffer(carId, offer) {
+  let carInfo = car.listCar.find((car) => car.id === carId);
+
+  if (carInfo.currentPrice < Number(offer)) {
+    car.listCar.map((car) => {
+      if (car.id == carId) {
+        return (car.currentPrice = offer);
+      }
+      return car;
+    });
+    alert("Se hizo una oferta");
+    return carId;
+  } else {
+    alert("No es una oferta válida");
+    return false;
+  }
+}
+
+function winningOffer(carId) {
+  let carInfo = car.listCar.find((car) => car.id === carId);
+  if (carInfo.currentPrice >= carInfo.initialPrice * 5) {
     let newList = car.listCar.filter((car) => car.id !== carId);
     car.listCar = newList;
     alert(
-      `El auto ${selectedCar.brand} ${selectedCar.model} ${
-        selectedCar.year
-      } ${selectedCar.status.toUpperCase()} ha sido vendido a usted.`
+      `El auto ${carInfo.brand} ${carInfo.model} ${
+        carInfo.year
+      } (${carInfo.status.toUpperCase()}) fue vendido por $${
+        carInfo.currentPrice
+      }`
     );
-  } else return alert("No se que hiciste para llegar aca");
+    return true;
+  } else {
+    alert("Ups! La subasta aún sigue en pie");
+    return false;
+  }
 }
 
 alert(
@@ -149,22 +150,32 @@ alert(
 
 while (isRunning) {
   let homeOption = prompt(
-    "¿Que desea realizar?\n 1- Subastar\n 2- Ofertar\n 3- Salir"
+    "¿Qué desea realizar?\n 1- Subastar\n 2- Ofertar\n 3- Salir"
   );
 
   switch (homeOption) {
     case "1":
       {
-        alert("Acountinuación complete el siguiente formulario");
+        alert("Acontinuación rellena el siguiente formulario");
         auction();
       }
       break;
     case "2":
       {
-        let option = prompt(
+        let keyWord = prompt(
           `Escribe el modelo, marca o estado del auto que desea buscar:`
         );
-        searchCar(option);
+        let match = searchCar(keyWord);
+        if (match) {
+          let amount = prompt(
+            `¿Quieres llevarte un ${match.brand} ${match.model} ${match.year} (${match.status})?\n Ingrese un monto superior a $${match.currentPrice}`
+          );
+
+          let myOffer = makeAnOffer(match.id, amount);
+          if (myOffer) {
+            winningOffer(match.id);
+          }
+        }
       }
       break;
     case "3": {
