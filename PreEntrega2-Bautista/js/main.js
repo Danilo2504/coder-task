@@ -127,7 +127,7 @@ function makeAnOffer(carId, offer) {
 
 function winningOffer(carId) {
   let carInfo = car.listCar.find((car) => car.id === carId);
-  if (carInfo.currentPrice >= carInfo.initialPrice * 5) {
+  if (carInfo.currentPrice >= carInfo.initialPrice * 3) {
     let newList = car.listCar.filter((car) => car.id !== carId);
     car.listCar = newList;
     alert(
