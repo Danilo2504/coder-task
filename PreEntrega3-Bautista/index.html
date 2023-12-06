@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="styleSheet" type="text/css" href="./styles.css" />
+    <title>Biblioteca Borges</title>
+  </head>
+  <body>
+    <header>
+      <h1>Bienvendio a Biblioteca Borges</h1>
+    </header>
+    <form>
+      <label for="search-input">Buscar libros: </label>
+      <input id="search-input" placeholder="Ingresa tu búsqueda" type="text" />
+      <button id="search-button">Buscar</button>
+      <select id="search-filter">
+        <option selected value="title">Título</option>
+        <option value="author">Autor</option>
+        <option value="editorial">Editorial</option>
+      </select>
+    </form>
+
+    <div>
+      <h2 id="title-section"></h2>
+      <div id="books-container" class="wrapper-styles"></div>
+    </div>
+
+    <div>
+      <h2>Tus libros</h2>
+      <div id="borrowed-books-container" class="wrapper-styles"></div>
+    </div>
+
+    <template id="book-template">
+      <div class="container-styles">
+        <p class="title-author"></p>
+        <p class="genre-list"></p>
+        <p class="stock-text"></p>
+        <p class="disabled-text"></p>
+        <button class="borrow-button">Pedir</button>
+      </div>
+    </template>
+
+    <template id="borrowed-book-template">
+      <div class="container-styles">
+        <p class="title-author"></p>
+        <p class="genre-list"></p>
+        <p class="date-range"></p>
+        <button class="return-button">Devolver</button>
+      </div>
+    </template>
+
+    <script src="./main.js"></script>
+  </body>
+</html>
