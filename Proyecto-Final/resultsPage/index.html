@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="styleSheet" type="text/css" href="../styles/styles.css" />
+    <link rel="icon" type="image/x-icon" href="../images/watcher.png" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"
+      integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <title>Watcher</title>
+  </head>
+  <body>
+    <header class="header-container-styles">
+      <div class="logo-container-styles">
+        <a href="../index.html" class="logo-styles">
+          <img
+            src="../images/watcher-logo.png"
+            width="90px"
+            height="20px"
+            class="image-styles"
+          />
+        </a>
+      </div>
+      <form class="form-styles">
+        <input
+          id="search-bar"
+          type="text"
+          class="input-styles"
+          placeholder="Buscar"
+        />
+        <button id="search-button" class="button-styles">
+          <img src="../images/len.png" />
+        </button>
+      </form>
+    </header>
+    <main id="results-container" class="results-container-styles"></main>
+
+    <div id="loading"></div>
+
+    <div id="buttons-container"></div>
+
+    <script src="../request/config.js"></script>
+    <script src="../request/getAllVideos.js"></script>
+    <script src="../request/getChannelById.js"></script>
+    <script src="../request/getVideoByKeyWord.js"></script>
+    <script src="../utils/common.js"></script>
+    <script src="./main.js"></script>
+  </body>
+</html>
