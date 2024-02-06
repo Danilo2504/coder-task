@@ -1,12 +1,13 @@
 :root {
-  background-color: #242424;
+  background-color: #fbfbfb;
   text-wrap: pretty;
-  color: "white";
+  font-family: Arial, Helvetica, sans-serif;
+  color: #2b2b2b;
 }
 
 body {
+  box-sizing: border-box;
   margin: 0;
-  display: flex;
-  place-items: center;
+  min-width: 0;
   min-height: 100svh;
 }

@@ -1,0 +1,51 @@
+.container {
+  padding: 0 60px;
+  display: flex;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  background-color: #f1f1f1;
+  box-shadow: 0px 2px 9px #dadada;
+}
+
+.logoContainer {
+  min-width: 100px;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 10px;
+  cursor: pointer;
+  transition: opacity 0.4s ease;
+}
+
+.navMenu {
+  display: flex;
+  height: 100%;
+  gap: 15px;
+  max-width: 700px;
+  flex-direction: row;
+}
+
+.navItem {
+  padding: 0 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover > a {
+    color: #5d5d5d;
+    transform: scale(1.1);
+  }
+}
+
+.navItem > a {
+  text-align: center;
+  transition: color 0.3s ease, transform 0.2s ease-in-out;
+}

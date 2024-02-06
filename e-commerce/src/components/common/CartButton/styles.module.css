@@ -1,0 +1,16 @@
+/* Cart Button Styles */
+
+.cartButton {
+  border: 0.2px solid #dadada;
+  border-radius: 12px;
+  padding: 4px 12px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+
+  &:hover {
+    opacity: 0.5;
+  }
+}

@@ -1,7 +1,11 @@
+import ProductsList from "./components/common/ProductsList";
+import Navbar from "./components/layout/Navbar";
+
 function App() {
   return (
     <>
-      <div>Hola</div>
+      <Navbar />
+      <ProductsList greeting={"¡Hola mundo!"} />
     </>
   );
 }
