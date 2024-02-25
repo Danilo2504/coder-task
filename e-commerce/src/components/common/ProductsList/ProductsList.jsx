@@ -1,10 +1,11 @@
+import { ScreenContainer } from "../../layout";
 import styles from "./styles.module.css";
 
 const ProductsList = ({ greeting }) => {
   return (
-    <div className={styles.container}>
+    <ScreenContainer>
       <p className={styles.text}>{greeting}</p>
-    </div>
+    </ScreenContainer>
   );
 };
 

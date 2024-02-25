@@ -1,27 +1,22 @@
 import styles from "./styles.module.css";
 import Home from "../../../assets/home.svg?react";
-import CartButton from "../../common/CartButton";
+import { CartButton } from "../../common";
+import { Link } from "react-router-dom";
+import { categories } from "../../../data/categories";
 
 const Navbar = () => {
   return (
     <div className={styles.container}>
-      <a className={styles.logoContainer}>
+      <Link to={"/"} className={styles.logoContainer}>
         <Home />
         <span>INICIO</span>
-      </a>
+      </Link>
       <div className={styles.navMenu}>
-        <div className={styles.navItem}>
-          <a>IOS</a>
-        </div>
-        <div className={styles.navItem}>
-          <a>Android</a>
-        </div>
-        <div className={styles.navItem}>
-          <a>Accesorios</a>
-        </div>
-        <div className={styles.navItem}>
-          <a>Modelos Recientes</a>
-        </div>
+        {categories.map((category, index) => (
+          <div key={index} className={styles.navItem}>
+            <Link to={`/categories/${category.path}`}>{category.label}</Link>
+          </div>
+        ))}
       </div>
       <CartButton />
     </div>

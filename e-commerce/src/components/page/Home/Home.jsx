@@ -1,11 +1,12 @@
-import ProductsList from "../../common/ProductsList";
-import Navbar from "../../layout/Navbar";
+import { useParams } from "react-router-dom";
+import { ProductsList } from "../../common";
 
 function Home() {
+  const { category } = useParams();
+
   return (
     <div>
-      <Navbar />
-      <ProductsList greeting={"Hola mundo"} />
+      <ProductsList greeting={category ? category : "Hola mundo"} />
     </div>
   );
 }
