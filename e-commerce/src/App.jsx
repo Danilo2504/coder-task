@@ -1,9 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Cart, Home, ProductDetail } from "./components/page";
 import { Navbar } from "./components/layout";
-import { useEffect } from "react";
-import { getCategories } from "./services/getCategories/getCategories";
-import { getProducts } from "./services/getProducts/getProducts";
 
 function App() {
   useEffect(() => {
