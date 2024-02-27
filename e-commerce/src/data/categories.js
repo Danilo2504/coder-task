@@ -1,18 +1,20 @@
 export const categories = [
   {
-    label: "IOS",
-    path: "ios",
+    id: 1,
+    label: "Telefonos",
+    category: "mobile",
+    types: {
+      android: "android",
+      ios: "ios",
+    },
   },
   {
-    label: "Android",
-    path: "android",
-  },
-  {
-    label: "Accesorios",
-    path: "accesories",
-  },
-  {
-    label: "Modelos Recientes",
-    path: "recent-models",
+    id: 2,
+    label: "Accesorios de Telefono",
+    category: "accesories",
+    types: {
+      android: "android",
+      ios: "ios",
+    },
   },
 ];

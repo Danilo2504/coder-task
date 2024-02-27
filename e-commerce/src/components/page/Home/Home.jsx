@@ -1,13 +1,25 @@
 import { useParams } from "react-router-dom";
-import { ProductsList } from "../../common";
+import { Loading, ScreenContainer } from "../../layout";
+import { Card } from "../../common";
+import { useFetch } from "../../../hooks/useFetch";
+import { getProducts } from "../../../services/getProducts";
+import styles from "./styles.module.css";
 
 function Home() {
-  const { category } = useParams();
+  const { categoryId } = useParams();
+
+  const { data, isLoading } = useFetch(getProducts, categoryId);
+
+  if (isLoading) return <Loading />;
 
   return (
-    <div>
-      <ProductsList greeting={category ? category : "Hola mundo"} />
-    </div>
+    <ScreenContainer>
+      <div className={styles.cardsGrid}>
+        {data?.map((product, index) => (
+          <Card key={index} data={product} />
+        ))}
+      </div>
+    </ScreenContainer>
   );
 }
 

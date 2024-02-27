@@ -1,0 +1,42 @@
+.productContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background-color: #fffefe;
+  box-shadow: 0px 2px 9px #dadada;
+  max-width: 1024px;
+  margin-top: 80px;
+}
+
+.leftCol {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image {
+  object-fit: cover;
+  aspect-ratio: 367 / 400;
+}
+
+.rightCol {
+  margin: 16px;
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px #0000001a solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.goBackButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  font-size: 15px;
+  color: #000c8b;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

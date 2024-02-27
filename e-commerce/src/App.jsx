@@ -1,21 +1,18 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Cart, Home, ProductDetail } from "./components/page";
-import { Navbar } from "./components/layout";
+import { Cart, Home, NotFound, ProductDetail } from "./components/page";
+import { Layout } from "./components/layout";
 
 function App() {
-  useEffect(() => {
-    // getCategories();
-    // getProducts();
-  }, []);
-
   return (
     <BrowserRouter>
-      <Navbar />
       <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route exact path="/categories/:category" element={<Home />} />
-        <Route exact path="/cart" element={<Cart />} />
-        <Route exact path="/product/:id" element={<ProductDetail />} />
+        <Route element={<Layout />}>
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/category/:categoryId" element={<Home />} />
+          <Route exact path="/cart" element={<Cart />} />
+          <Route exact path="/product/:productId" element={<ProductDetail />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

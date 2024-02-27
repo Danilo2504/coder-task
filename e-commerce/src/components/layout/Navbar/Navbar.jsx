@@ -12,10 +12,14 @@ const Navbar = () => {
         <span>INICIO</span>
       </Link>
       <div className={styles.navMenu}>
-        {categories.map((category, index) => (
-          <div key={index} className={styles.navItem}>
-            <Link to={`/categories/${category.path}`}>{category.label}</Link>
-          </div>
+        {categories.map((category) => (
+          <Link
+            key={category.id}
+            className={styles.navItem}
+            to={`/category/${category.category}`}
+          >
+            {category.label}
+          </Link>
         ))}
       </div>
       <CartButton />

@@ -1,0 +1,14 @@
+.container {
+  height: 100svh;
+  display: flex;
+  background-color: #fefffe;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}

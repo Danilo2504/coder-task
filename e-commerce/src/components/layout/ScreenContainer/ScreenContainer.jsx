@@ -1,8 +1,11 @@
-import React from "react";
-import styles from "./styles.module.css";
+import rootStyles from "./styles.module.css";
 
-const ScreenContainer = ({ children }) => {
-  return <div className={styles.container}>{children}</div>;
+const ScreenContainer = ({ children, style }) => {
+  return (
+    <div className={rootStyles.container} style={style}>
+      {children}
+    </div>
+  );
 };
 
 export default ScreenContainer;

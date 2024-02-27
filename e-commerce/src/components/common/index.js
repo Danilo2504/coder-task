@@ -1,4 +1,4 @@
 import CartButton from "./CartButton/CartButton";
-import ProductsList from "./ProductsList/ProductsList";
+import Card from "./Card/Card";
 
-export { CartButton, ProductsList };
+export { CartButton, Card };

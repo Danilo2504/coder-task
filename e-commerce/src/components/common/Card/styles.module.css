@@ -1,0 +1,38 @@
+.cardContainer {
+  box-shadow: 0px 2px 9px #dadada;
+  border-radius: 15px;
+  padding-inline: 20px;
+  padding-top: 20px;
+  padding-bottom: 30px;
+  background-color: #fffefe;
+  width: 300px;
+}
+
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.image {
+  height: 200px;
+  width: 140px;
+}
+
+.textModel {
+  color: #416cff;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.textInfo {
+  color: #707070;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.textPrice {
+  color: #03a750;
+  font-weight: 500;
+  font-size: 16px;
+}

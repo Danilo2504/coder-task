@@ -1,4 +1,3 @@
-import React from "react";
 import { ScreenContainer } from "../../layout";
 
 const Cart = () => {
