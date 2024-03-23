@@ -13,9 +13,9 @@ export const getProducts = async (categoryId) => {
     );
     products = productsFiltered;
   } else {
+    products = productsRef;
   }
-  products = productsRef;
-  const response = await getDocs(productsRef);
+  const response = await getDocs(products);
 
   return response.docs.map((product) => {
     return { ...product.data(), id: product.id };
