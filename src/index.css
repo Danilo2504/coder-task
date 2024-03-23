@@ -1,3 +1,18 @@
+@font-face {
+  font-family: "FF Mark Pro Thin";
+  src: url("./fonts/FF_Mark_Pro-Thin.otf");
+}
+
+@font-face {
+  font-family: "FF Mark Pro";
+  src: url("./fonts/FF_Mark_Pro.otf");
+}
+
+@font-face {
+  font-family: "FF Mark Pro Medium";
+  src: url("./fonts/FF_Mark_Pro-Medium.otf");
+}
+
 :root {
   background-color: #fbfbfb;
   text-wrap: pretty;
@@ -6,11 +21,9 @@
 }
 
 body {
-  box-sizing: border-box;
   margin: 0;
   min-width: 0;
-  min-height: 100svh;
-  font-family: "Poppins", sans-serif;
+  font-family: "FF Mark Pro", sans-serif;
 }
 
 a {

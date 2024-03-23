@@ -1,14 +1,11 @@
-import styles from "./styles.module.css";
-import Cart from "../../../assets/cart.svg?react";
-import { Link } from "react-router-dom";
+import CartButtonPresentational from "./CartButtonPresentational";
+import { useContext } from "react";
+import { CartContext } from "../../../contexts/CartContext";
 
 const CartButton = () => {
-  return (
-    <Link to={"/cart"} className={styles.cartButton}>
-      <Cart />
-      <span>0</span>
-    </Link>
-  );
+  const { cart } = useContext(CartContext);
+
+  return <CartButtonPresentational cartCount={cart.length} />;
 };
 
 export default CartButton;

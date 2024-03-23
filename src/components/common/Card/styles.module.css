@@ -5,7 +5,8 @@
   padding-top: 20px;
   padding-bottom: 30px;
   background-color: #fffefe;
-  width: 300px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .imageContainer {

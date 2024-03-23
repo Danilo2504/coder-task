@@ -1,15 +1,14 @@
 import styles from "./styles.module.css";
-import Home from "../../../assets/home.svg?react";
 import { CartButton } from "../../common";
 import { Link } from "react-router-dom";
 import { categories } from "../../../data/categories";
+import logo_brand from "../../../assets/logo-brand.png";
 
 const Navbar = () => {
   return (
     <div className={styles.container}>
       <Link to={"/"} className={styles.logoContainer}>
-        <Home />
-        <span>INICIO</span>
+        <img src={logo_brand} width={200} height={40} alt="imagen del logo" />
       </Link>
       <div className={styles.navMenu}>
         {categories.map((category) => (
