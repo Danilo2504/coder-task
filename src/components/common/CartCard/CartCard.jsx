@@ -1,24 +1,22 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styles from "./styles.module.css";
+import { CartContext } from "../../../contexts/CartContext";
 
 const CartCard = ({ data }) => {
-  const [counter, setCounter] = useState(data.quantity);
-
-  const handleInput = (text) => {
-    if (data.stock >= +text.target.value > 0) {
-      setCounter(+text.target.value);
-    }
-  };
+  const { editProduct } = useContext(CartContext);
+  const [subTotal, setSubTotal] = useState(data.price * data.quantity);
 
   const sumar = () => {
-    if (data.stock > counter) {
-      setCounter((prevState) => prevState + 1);
+    if (data.stock > data.quantity) {
+      editProduct(data, ["quantity", data.quantity + 1]);
+      setSubTotal((prevState) => prevState + data.price);
     }
   };
 
   const restar = () => {
-    if (counter > 1) {
-      setCounter((prevState) => prevState - 1);
+    if (data.quantity > 1) {
+      editProduct(data, ["quantity", data.quantity - 1]);
+      setSubTotal((prevState) => prevState - data.price);
     }
   };
 
@@ -27,22 +25,19 @@ const CartCard = ({ data }) => {
       <img src={data.image_url} className={styles.image} />
       <div className={styles.titleContainer}>
         <h2 className={styles.title}>{data.model}</h2>
-        <p>{`${data.brand} - ${data.year}`}</p>
+        <p className={styles.subtitle}>{`${data.brand} - ${data.year}`}</p>
       </div>
       <div className={styles.counterContainer}>
-        <button onClick={sumar}>+</button>
-        <input
-          type="text"
-          value={counter}
-          onChange={(text) => handleInput(text)}
-          className={styles.input}
-        />
+        <button onClick={sumar} className={styles.button}>
+          +
+        </button>
+        <div className={styles.text}>{data.quantity}</div>
         <button onClick={restar} className={styles.button}>
           -
         </button>
       </div>
-      <p>{`Stock: ${data.stock}`}</p>
-      <p>{`$ ${data.price}`}</p>
+      <p className={styles.info}>{`Stock: ${data.stock}`}</p>
+      <p className={styles.info}>{`$ ${subTotal}`}</p>
     </div>
   );
 };

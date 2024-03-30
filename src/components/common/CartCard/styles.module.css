@@ -1,20 +1,18 @@
 .container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 80px minmax(300px, 1fr) 90px 80px 70px;
   background-color: white;
   border-radius: 15px;
+  gap: 10px;
   box-shadow: 0px 2px 9px #dadada;
-  padding-inline: 20px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 20px;
 }
 
 .image {
-  aspect-ratio: 37/51;
-  height: auto;
+  aspect-ratio: auto;
+  height: 90px;
+  object-fit: contain;
   width: 100%;
-  max-width: 48px;
 }
 
 .titleContainer {
@@ -24,24 +22,37 @@
 
 .title {
   font-size: 18px;
+  margin: 0;
+  margin-top: 10px;
   font-family: "FF Mark Pro Medium";
 }
 
+.subtitle {
+  font-size: 14px;
+}
+
 .counterContainer {
+  margin-top: 10px;
   display: flex;
-  padding: 10px;
   border: 1px rgba(0, 0, 0, 0.3) solid;
-  align-items: center;
-  height: fit-content;
+  height: 30px;
 }
 
-.input {
-  border: none;
-  width: 40px;
+.text {
+  width: 40%;
   height: 100%;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-input:focus {
-  outline: none;
+.button {
+  width: 30%;
+  border: none;
+  cursor: pointer;
+}
+
+.info {
+  margin-top: 10px;
+  font-weight: bold;
 }

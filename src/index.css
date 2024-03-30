@@ -13,17 +13,17 @@
   src: url("./fonts/FF_Mark_Pro-Medium.otf");
 }
 
-:root {
-  background-color: #fbfbfb;
-  text-wrap: pretty;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #2b2b2b;
-}
-
 body {
   margin: 0;
   min-width: 0;
+  box-sizing: border-box;
+  background-color: #fbfbfb;
+}
+
+#root {
+  text-wrap: pretty;
   font-family: "FF Mark Pro", sans-serif;
+  color: #2b2b2b;
 }
 
 a {

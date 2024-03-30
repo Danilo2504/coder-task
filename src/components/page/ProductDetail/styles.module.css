@@ -1,11 +1,12 @@
 .productContainer {
   display: grid;
+  flex: 1;
+  align-self: center;
   grid-template-columns: repeat(2, 1fr);
   background-color: #fffefe;
   box-shadow: 0px 2px 9px #dadada;
-  max-width: 1024px;
-  margin-top: 80px;
-  margin-bottom: 60px;
+  width: 1024px;
+  margin: 30px 60px;
 }
 
 .leftCol {
@@ -15,8 +16,10 @@
 }
 
 .image {
-  object-fit: cover;
-  aspect-ratio: 367 / 400;
+  object-fit: contain;
+  aspect-ratio: auto;
+  height: 600px;
+  width: 100%;
 }
 
 .rightCol {
@@ -26,7 +29,6 @@
   border: 1px #0000001a solid;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .goBackButton {
@@ -40,4 +42,26 @@
   &:hover {
     text-decoration: underline;
   }
+}
+
+.counterContainer {
+  margin-top: 10px;
+  display: flex;
+  border: 1px rgba(0, 0, 0, 0.3) solid;
+  height: 30px;
+  width: 120px;
+}
+
+.text {
+  width: 40%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  width: 30%;
+  border: none;
+  cursor: pointer;
 }

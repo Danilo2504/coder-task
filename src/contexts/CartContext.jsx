@@ -14,6 +14,13 @@ export const CartProvider = ({ children }) => {
     dispatch({ type: CART_ACTION_TYPES.ADD_TO_CART, payload: product });
   };
 
+  const editProduct = (product, value) => {
+    dispatch({
+      type: CART_ACTION_TYPES.EDIT_PRODUCT,
+      payload: { product, value },
+    });
+  };
+
   const removeProduct = (product) => {
     dispatch({ type: CART_ACTION_TYPES.REMOVE_PRODUCT, payload: product });
   };
@@ -22,9 +29,22 @@ export const CartProvider = ({ children }) => {
     dispatch({ type: CART_ACTION_TYPES.CLEAR_CART, payload: [] });
   };
 
+  const totalPrice = state
+    .map((item) => item.price * item.quantity)
+    .reduce((acc, cur) => {
+      return acc + cur;
+    }, 0);
+
   return (
     <CartContext.Provider
-      value={{ cart: state, addToCart, removeProduct, clearCart }}
+      value={{
+        cart: state,
+        addToCart,
+        editProduct,
+        removeProduct,
+        clearCart,
+        totalPrice,
+      }}
     >
       {children}
     </CartContext.Provider>
